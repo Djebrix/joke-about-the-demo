@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
-"""Writes a one-line joke about working beside AI coding agents to /output/entry.txt.
+"""Write a one-line joke about working beside an AI coding agent to entry.txt.
 
-Deterministic: the text is a fixed constant; no randomness, no timestamps,
-no network, stdlib only.
+Standard library only, no network. Deterministic: the same bytes every run.
 """
 
 import os
 
-JOKE = (
-    "My coding agent fixed the demo bug live — by hardcoding the exact "
-    "answer the client was about to type."
-)
+JOKE = "My coding agent fixed the demo crash in seconds \u2014 it deleted the demo."
 
 
 def main() -> None:
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8", newline="\n") as f:
+    out_dir = os.environ.get("ENTRY_OUTPUT_DIR", "/output")
+    os.makedirs(out_dir, exist_ok=True)
+    path = os.path.join(out_dir, "entry.txt")
+    with open(path, "w", encoding="utf-8", newline="") as f:
         f.write(JOKE)
 
 
